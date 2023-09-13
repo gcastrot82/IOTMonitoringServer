@@ -95,7 +95,7 @@ DATABASES = {
         "NAME": "iot_data",  # Nombre de la base de datos
         "USER": "dbadmin",  # Nombre de usuario
         "PASSWORD": "uniandesIOT1234*",  # Contraseña
-        "HOST": "18.212.93.233",  # Dirección IP de la base de datos
+        "HOST": "100.26.41.158",  # Dirección IP de la base de datos
         "PORT": "",  # Puerto de la base de datos
     }
 }
