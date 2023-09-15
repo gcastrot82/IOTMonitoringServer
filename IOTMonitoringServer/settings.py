@@ -97,7 +97,7 @@ DATABASES = {
         "USER": "dbadmin",  # Nombre de usuario
         "PASSWORD": "uniandesIOT1234*",  # Contraseña
         "HOST": "52.207.232.155",  # Dirección IP de la base de datos
-        "PORT": "",  # Puerto de la base de datos
+        "PORT": "5432",  # Puerto de la base de datos
     }
 }
 
@@ -163,11 +163,11 @@ MQTT_PORT = 8082
 
 # Credenciales para el usuario suscriptor del bróker MQTT
 MQTT_USER = "admin"
-MQTT_PASSWORD = "admin"
+MQTT_PASSWORD = "Gerardo123"
 
 # Credenciales para el usuario publicador del bróker MQTT
 MQTT_USER_PUB = "admin2"
-MQTT_PASSWORD_PUB = "admin2"
+MQTT_PASSWORD_PUB = "Gerardo123"
 
 # Tópico a suscribir. "+/+/+/+/out" se suscribe únicamente a los
 # tópicos con forma <país>/<estado>/<ciudad>/<usuario>/out.
