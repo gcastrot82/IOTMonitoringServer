@@ -57,7 +57,7 @@ def analyze_data():
 #aggregation = data.annotate(check_value=Avg('avg_value')) \
     #data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1)) 
     data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(minutes=1)) 
-    aggregation = data.annotate(min_value=Min('avg_value')) \
+    aggregation = data.annotate(min_value=Min('measurement_id')) \
         .select_related('station', 'measurement') \
         .select_related('station__user', 'station__location') \
         .select_related('station__location__city', 'station__location__state',
