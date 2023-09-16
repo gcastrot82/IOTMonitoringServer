@@ -8,6 +8,7 @@ import schedule
 import time
 from django.conf import settings
 
+from django.utils import timezone
 client = mqtt.Client(settings.MQTT_USER_PUB)
 
 
@@ -56,7 +57,7 @@ def analyze_data():
 
 #aggregation = data.annotate(check_value=Avg('avg_value')) \
     #data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1)) 
-    data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(minutes=1)) 
+    data = Data.objects.filter(base_time__gte=timezone.now() - timedelta(minutes=1)) 
     aggregation = data.annotate(check_value=Q('measurement_id'==1)) \
         .select_related('station', 'measurement') \
         .select_related('station__user', 'station__location') \
@@ -70,7 +71,7 @@ def analyze_data():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0 
-    print("El valor de data es: {}".format(data))
+    print("El valor de data es: {}".format(len(data)))
     print("el valor agregacion es {}".format(len(aggregation))) 
     for item in aggregation: 
         alert = False
