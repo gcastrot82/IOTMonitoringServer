@@ -70,6 +70,7 @@ def analyze_data():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0 
+    
     for item in aggregation: 
         alert = False 
         variable = item["measurement__name"] 
@@ -78,7 +79,8 @@ def analyze_data():
         country = item['station__location__country__name'] 
         state = item['station__location__state__name'] 
         city = item['station__location__city__name'] 
-        user = item['station__user__username'] 
+        user = item['station__user__username']
+        print("el valor maximo es {}".format(max_value)) 
         if item["check_value"] > max_value or item["check_value"] < min_value: 
             alert = True 
         if alert: 
