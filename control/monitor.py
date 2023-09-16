@@ -56,8 +56,8 @@ def analyze_data():
 
 
     data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1)) 
-    #aggregation = data.annotate(check_value=Avg('avg_value')) \
     aggregation = data.annotate(check_value=Avg('avg_value')) \
+    #aggregation = data.annotate(check_value=Avg('avg_value')) \
         .select_related('station', 'measurement') \
         .select_related('station__user', 'station__location') \
         .select_related('station__location__city', 'station__location__state',
@@ -65,6 +65,7 @@ def analyze_data():
         .values('check_value', 'station__user__username',
                 'measurement__name',
                 'measurement__min_value',
+                'measurement__max_value',
                 'station__location__city__name',
                 'station__location__state__name',
                 'station__location__country__name')
