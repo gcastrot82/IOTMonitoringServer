@@ -70,7 +70,7 @@ def analyze_data():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0 
-    
+    print("el valor agregacion es {}".format(aggregation)) 
     for item in aggregation: 
         alert = False 
         variable = item["measurement__name"] 
