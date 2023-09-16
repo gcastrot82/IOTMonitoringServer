@@ -1,6 +1,6 @@
 from argparse import ArgumentError
 import ssl
-from django.db.models import Avg, Min
+from django.db.models import Avg, Min, Q
 from datetime import timedelta, datetime
 from receiver.models import Data, Measurement
 import paho.mqtt.client as mqtt
@@ -57,7 +57,7 @@ def analyze_data():
 #aggregation = data.annotate(check_value=Avg('avg_value')) \
     #data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1)) 
     data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(minutes=1)) 
-    aggregation = data.annotate(check_value=Min('measurement_id')) \
+    aggregation = data.annotate(check_value=Q('measurement_id'==1)) \
         .select_related('station', 'measurement') \
         .select_related('station__user', 'station__location') \
         .select_related('station__location__city', 'station__location__state',
@@ -70,9 +70,11 @@ def analyze_data():
                 'station__location__state__name',
                 'station__location__country__name')
     alerts = 0 
+    print("El valro de data es: {}".format(data))
     print("el valor agregacion es {}".format(len(aggregation))) 
     for item in aggregation: 
-        alert = False 
+        alert = False
+        print("el valor item es {}".format(item))  
         variable = item["measurement__name"] 
         max_value = item["measurement__max_value"] or 0 
         min_value = item["measurement__min_value"] or 0 
