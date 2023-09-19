@@ -63,7 +63,7 @@ def analyze_data():
 
         if alert2:
             print("El valor chequeado para luminosidad es sobrepsado {}".format(item["check_value"]))
-            message = "ENCENDER" 
+            message = "ALERT ENCENDER LUZ" 
             topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
             print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
             client.publish(topic, message) 
