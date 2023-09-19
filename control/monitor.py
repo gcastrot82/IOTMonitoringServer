@@ -19,44 +19,6 @@ def analyze_data():
 
     print("Calculando alertas...")
 
-    # data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1))
-
-    # aggregation = data.annotate(check_value=Avg('avg_value')) \
-    #     .select_related('station', 'measurement') \
-    #     .select_related('station__user', 'station__location') \
-    #     .select_related('station__location__city', 'station__location__state',
-    #                     'station__location__country') \
-    #     .values('check_value', 'station__user__username',
-    #             'measurement__name',
-    #             'measurement__min_value',
-    #             'station__location__city__name',
-    #             'station__location__state__name',
-    #             'station__location__country__name')
-    # alerts = 0
-    # for item in aggregation:
-    #     alert = False
-
-    #     variable = item["measurement__name"]
-    #     min_value = item["measurement__min_value"] or 0
-
-    #     country = item['station__location__country__name']
-    #     state = item['station__location__state__name']
-    #     city = item['station__location__city__name']
-    #     user = item['station__user__username']
-
-    #     if item["check_value"] < min_value:
-    #         alert = True
-
-    #     if alert:
-    #         #message = "ALERT {} {}".format(variable, min_value)
-    #         message = "ALERT {} {}".format(variable, min_value)
-    #         topic = '{}/{}/{}/{}/in'.format(country, state, city, user)
-    #         print(datetime.now(), "Sending alert to {} {}".format(topic, variable))
-    #         client.publish(topic, message)
-    #         alerts += 1
-
-#aggregation = data.annotate(check_value=Avg('avg_value')) \
-    #data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1)) 
     data = Data.objects.filter(base_time__gte=datetime.now() - timedelta(hours=1)) 
     aggregation = data.annotate(check_value=Avg('avg_value')) \
         .select_related('station', 'measurement') \
@@ -84,7 +46,10 @@ def analyze_data():
         city = item['station__location__city__name'] 
         user = item['station__user__username']
         print("el valor maximo es {}".format(max_value))
-        print("El valor chqueado es {}".format(item["check_value"]))
+        print("El valor chequeado es {}".format(item["check_value"]))
+        print("La variable de medicion es {}".format(variable))
+        
+
         if item["check_value"] > max_value or item["check_value"] < min_value: 
             alert = True 
         if alert: 
