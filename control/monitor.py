@@ -45,19 +45,25 @@ def analyze_data():
         state = item['station__location__state__name'] 
         city = item['station__location__city__name'] 
         user = item['station__user__username']
-        print("el valor maximo es {}".format(max_value))
-        print("El valor chequeado es {}".format(item["check_value"]))
-        print("La variable de medicion es {}".format(variable))
-        
+        print("el valor maximo es {}".format(max_value))        
+        # print("La variable de medicion es {}".format(variable))        
 
         if item["check_value"] > max_value or item["check_value"] < min_value: 
             alert = True 
-        if alert: 
-            message = "ALERT {} {} {}".format(variable, min_value, max_value) 
-            topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
-            print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
-            client.publish(topic, message) 
-            alerts += 1 
+        if alert:
+            if variable != 'luminosidad':
+                message = "ALERT {} {} {}".format(variable, min_value, max_value) 
+                topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
+                print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
+                client.publish(topic, message) 
+                alerts += 1 
+            else:
+                print("El valor chequeado para luminosidad es {}".format(item["check_value"]))
+                message = "ENCENDER".format(variable, min_value, max_value) 
+                topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
+                print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
+                client.publish(topic, message) 
+                alerts += 1 
 
 
     print(len(aggregation), "dispositivos revisados")
