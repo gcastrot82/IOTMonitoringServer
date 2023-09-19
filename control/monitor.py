@@ -37,6 +37,7 @@ def analyze_data():
     print("el valor agregacion es {}".format(len(aggregation))) 
     for item in aggregation: 
         alert = False
+        alert2 = False
         print("el valor item es {}".format(item))  
         variable = item["measurement__name"] 
         max_value = item["measurement__max_value"] or 0 
