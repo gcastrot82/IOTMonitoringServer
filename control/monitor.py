@@ -49,21 +49,25 @@ def analyze_data():
         # print("La variable de medicion es {}".format(variable))        
 
         if item["check_value"] > max_value or item["check_value"] < min_value: 
-            alert = True 
+            alert = True
+
+        if variable == 'luminosidad' and item["check_value"] > max_value: 
+            alert2 = True
+
         if alert:
-            # if variable != 'luminosidad':
             message = "ALERT {} {} {}".format(variable, min_value, max_value) 
             topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
             print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
             client.publish(topic, message) 
             alerts += 1 
-            # else:
-            #     print("El valor chequeado para luminosidad es {}".format(item["check_value"]))
-            #     message = "ENCENDER" 
-            #     topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
-            #     print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
-            #     client.publish(topic, message) 
-            #     alerts += 1 
+
+        if alert2:
+            print("El valor chequeado para luminosidad es sobrepsado {}".format(item["check_value"]))
+            message = "ENCENDER" 
+            topic = '{}/{}/{}/{}/in'.format(country, state, city, user) 
+            print(datetime.now(), "Sending alert to {} {}".format(topic, variable)) 
+            client.publish(topic, message) 
+            alerts += 1 
 
 
     print(len(aggregation), "dispositivos revisados")
