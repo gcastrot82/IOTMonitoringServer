@@ -52,7 +52,7 @@ def analyze_data():
         if item["check_value"] > max_value or item["check_value"] < min_value: 
             alert = True
 
-        if variable == 'luminosidad' and item["check_value"] > max_value: 
+        if variable == 'luminosidad' and item["check_value"] < min_value: 
             alert2 = True
 
         if alert:
